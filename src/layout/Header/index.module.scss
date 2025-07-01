@@ -1,0 +1,15 @@
+.container {
+  background: #1c7eff;
+  background: -webkit-linear-gradient(90deg, #1c7eff 0%, #00acff 80%);
+  background: -moz-linear-gradient(90deg, #1c7eff 0%, #00acff 80%);
+  background: linear-gradient(90deg, #1c7eff 0%, #00acff 80%);
+  color: #FFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: inherit;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
