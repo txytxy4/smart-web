@@ -35,8 +35,8 @@ export const register = (data: RegisterRequest): Promise<RegisterResponse> => {
  * 获取用户信息
  * @returns Promise<GetUserInfoResponse>
  */
-export const getUserInfo = (): Promise<GetUserInfoResponse> => {
-    return service.get('/user/info');
+export const getUserInfo = (id: string | number): Promise<GetUserInfoResponse> => {
+    return service.get('/user/info?id=' + id);
 };
 
 /**

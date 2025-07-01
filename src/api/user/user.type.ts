@@ -23,7 +23,12 @@ export interface UserInfo {
     status: number;
     createTime: string;
     updateTime: string;
-    token: string
+    token: string;
+    profile?: object;
+    nickname?: string;
+    avatarUrl?: string;
+    points?: string;
+    address?: string;
 }
 
 // 登录响应数据
@@ -42,7 +47,9 @@ export interface RegisterResponse {
 
 // 获取用户信息响应
 export interface GetUserInfoResponse {
-    userInfo: UserInfo;
+    message: string;
+    data: UserInfo;
+    code: number;
 }
 
 // 更新用户信息请求参数
