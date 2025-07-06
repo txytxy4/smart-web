@@ -45,7 +45,7 @@ const Login = () => {
       const res = await handle(data);
       console.log("res", res);
       if (res.code === 200) {
-        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("token", res.data.token || '');
         localStorage.setItem("userId", String(res.data.id));
         navigate("/index/home");
       } else {

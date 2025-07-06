@@ -4,7 +4,8 @@ import About from '../pages/About';
 import Layout from '../layout';
 import Goods from '../pages/goods';
 import Login from '@/pages/Login/login';
-import Unknow from '@/pages/404/index'
+import Unknow from '@/pages/404/index';
+import User from '@/pages/User/index';
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: 'goods',
                 Component: Goods,
+            },
+            {
+                path: 'user',
+                Component: User,
             }
         ]
     },

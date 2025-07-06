@@ -14,21 +14,27 @@ export interface RegisterRequest {
 
 // 用户信息
 export interface UserInfo {
-    id: number;
-    username: string;
+    id?: number;
+    username?: string;
+    nickname?: string;
     email?: string;
     phone?: string;
     avatar?: string;
-    role: string;
-    status: number;
-    createTime: string;
-    updateTime: string;
-    token: string;
-    profile?: object;
-    nickname?: string;
     avatarUrl?: string;
+    role?: string;
+    status?: number;
+    createTime?: string;
+    updateTime?: string;
+    token?: string;
+    profile?: object;
     points?: string;
     address?: string;
+}
+
+export interface UploadInfo {
+    filename?: string,
+    originalname?: string,
+    path?: string
 }
 
 // 登录响应数据
@@ -63,6 +69,12 @@ export interface UpdateUserRequest {
 export interface ChangePasswordRequest {
     oldPassword: string;
     newPassword: string;
+}
+
+export interface UploadAvatarResponse {
+    filename?: string,
+    originalname?: string,
+    path?: string
 }
 
 // 通用API响应格式

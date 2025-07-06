@@ -1,12 +1,12 @@
 import axios from 'axios';
-import type { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
+import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
-// 定义响应格式接口
-interface ApiResponse<T = unknown> {
-  code: number;
-  message: string;
-  data: T;
-}
+// // 定义响应格式接口
+// interface ApiResponse<T = unknown> {
+//   code: number;
+//   message: string;
+//   data: T;
+// }
 
 // 扩展配置类型以支持metadata
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
@@ -19,9 +19,9 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 const service: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000', // 修正baseURL
   timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  // headers: {
+  //   'Content-Type': 'application/json',
+  // },
 });
 
 // 请求拦截器
@@ -60,7 +60,7 @@ service.interceptors.request.use(
 
 // 响应拦截器
 service.interceptors.response.use(
-  (response: AxiosResponse<ApiResponse>) => {
+  (response) => {
     const res = response.data;
     const config = response.config as CustomAxiosRequestConfig;
     
@@ -97,8 +97,8 @@ service.interceptors.response.use(
     }
     console.log('response', response);
     
-    
-    return response?.data;
+
+    return res
   },
   (error) => {
     // 网络错误处理

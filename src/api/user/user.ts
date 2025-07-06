@@ -1,8 +1,8 @@
 import service from "../request";
-import type { 
-    LoginRequest, 
-    LoginResponse, 
-    RegisterRequest, 
+import type {
+    LoginRequest,
+    LoginResponse,
+    RegisterRequest,
     RegisterResponse,
     UserInfo,
     GetUserInfoResponse,
@@ -10,7 +10,8 @@ import type {
     ChangePasswordRequest,
     ApiResponse,
     PageRequest,
-    PageResponse
+    PageResponse,
+    UploadAvatarResponse
 } from "./user.type";
 
 /**
@@ -45,8 +46,17 @@ export const getUserInfo = (id: string | number): Promise<GetUserInfoResponse> =
  * @returns Promise<ApiResponse<UserInfo>>
  */
 export const updateUserInfo = (data: UpdateUserRequest): Promise<ApiResponse<UserInfo>> => {
-    return service.put('/user/info', data);
+    return service.post('/user/edit', data);
 };
+
+/**
+ * 上传头像
+ * @param data 更新参数
+ * @returns Promise<ApiResponse<UserInfo>>
+ */
+export const uploadAvatar = (data:FormData) :Promise<ApiResponse<UploadAvatarResponse>> => {
+    return service.post('/upload/single', data)
+}
 
 /**
  * 修改密码
