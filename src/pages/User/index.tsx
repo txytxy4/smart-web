@@ -33,6 +33,9 @@ const User: React.FC  = () => {
 
     const [user, setUser] = useState<UserInfo | null>(null); //用户信息
     const [loading, setLoading] = useState(false); //加载状态
+    const [saving, setSaving] = useState(false);
+
+
         const fetchUserInfo = async () => {
           try {
             const userId = localStorage.getItem('userId');
@@ -83,28 +86,36 @@ const User: React.FC  = () => {
             setUser({...user, role: value})
       }
 
-      const save = async () => {
-        try {
-            const data = {
-                id: user?.id,
-                nickname: user?.nickname,
-                address: user?.address,
-                phone: user?.phone,
-                role: user?.role,
-                avatarUrl: user?.avatarUrl
-            }
-            const res = await updateUserInfo(data);
-            if (res.code === 200) {
-                message.success('修改成功')
-                fetchUserInfo()
-            } else {
-                message.error(res.message)
-            }
-        } catch (error) {
-            console.log('error', error);
-            
-        }
-      }
+const save = async () => {
+  if (!user?.id) {
+    message.error('用户ID缺失，无法保存');
+    return;
+  }
+  setSaving(true);
+  try {
+    const data: Record<string, unknown> = {};
+    if (user.nickname) data.nickname = user.nickname;
+    if (user.address) data.address = user.address;
+    if (user.phone) data.phone = user.phone;
+    if (user.role) data.role = user.role;
+    if (user.avatarUrl) data.avatarUrl = user.avatarUrl;
+    data.id = user.id;
+
+    const res = await updateUserInfo(data);
+    if (res.code === 200) {
+      message.success('修改成功');
+      fetchUserInfo?.();
+      // 更新用户信息
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      message.error(res.message || '保存失败');
+    }
+  } catch (error) {
+    message.error((error as Error)?.message || '保存失败，请重试');
+  } finally {
+    setSaving(false);
+  }
+};
 
       const uploadButton = (
         <Button style={{ border: 0, background: 'none' }}>
@@ -138,7 +149,7 @@ const User: React.FC  = () => {
                     ]}></Select>
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" onClick={save}>保存</Button>
+                    <Button type="primary" onClick={save} loading={saving}>保存</Button>
                 </Form.Item>
             </Form>
         </div>
